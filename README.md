@@ -14,7 +14,7 @@ For this driver, the key parameters are as follows:
 
 Respect the fair-use transmission time per sensor of 30 seconds per day. The Semtec "LORA Calculator" tool gives the airtime (and therefore the minimum time between readings) for different radio settings. Or there's an online tool [here](https://loratools.nl/#/airtime).
 
-In order for the signal from a sensor in the basement of an apartment block to reliably reach my receiver, I use the following settings:
+In order for the signal from a sensor in the basement of an apartment block to reliably reach a receiver four floors above, I use the following settings:
 - tx_power_level = 20
 - signal_bandwidth = 40E3
 - spreading_factor = 11
