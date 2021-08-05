@@ -20,4 +20,3 @@ In order for the signal from a sensor in the basement of an apartment block to r
 - spreading_factor = 11
 - coding_rate = 8
 - preamble_length = 8
-- 
