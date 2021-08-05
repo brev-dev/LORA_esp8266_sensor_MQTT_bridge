@@ -13,3 +13,11 @@ For this driver, the key parameters are as follows:
 - coding_rate (default 5): 5 <= x <= 8 (true coding rate in the range 1-4 equals this value minus 4)
 
 Respect the fair-use transmission time per sensor of 30 seconds per day. The Semtec "LORA Calculator" tool gives the airtime (and therefore the minimum time between readings) for different radio settings. Or there's an online tool [here](https://loratools.nl/#/airtime).
+
+In order for the signal from a sensor in the basement of an apartment block to reliably reach my receiver, I use the following settings:
+- tx_power_level = 20
+- signal_bandwidth = 40E3
+- spreading_factor = 11
+- coding_rate = 8
+- preamble_length = 8
+- 
