@@ -1,5 +1,5 @@
 # LORA_esp8266_sensor_and_MQTT_bridge
-The limited available IO on an esp8266 make it a challenge to use as the basis for a LORA sensor. Here's a configuration that leaves just enough ports available for SPI communications, or for interfacing with other simple sensors. My setup uses a BME280 (temperature, pressure, humidity) sensor, and micropython.
+The limited number of gpio pins on an esp8266 make it a challenge to use as the basis for a LORA sensor. Here's a configuration that leaves just enough ports available for SPI communications, or for interfacing with other simple sensors. My setup uses a BME280 (temperature, pressure, humidity) sensor, and micropython.
 
 This is purely a sensor(s)-to-MQTT-bridge setup. We won't be doing anything advanced like connecting to a [public LORA network](https://www.thethingsnetwork.org/). For that, you'd both need to interface with additional DIO ports on the LORA module, and require different software: I haven't seen a micropython implementation for this use-case.
 
