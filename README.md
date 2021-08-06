@@ -1,5 +1,5 @@
 # LORA_esp8266_sensor_and_MQTT_bridge
-The limited number of gpio pins on an esp8266 make it a challenge to use as the basis for a LORA sensor. Here's a configuration that leaves just enough ports available for SPI communications, or for interfacing with other simple sensors. My setup uses a BME280 (temperature, pressure, humidity) sensor, and micropython.
+The limited number of gpio pins on an esp8266 make it a challenge to use as the basis for a LORA sensor. Here's a configuration that leaves just enough ports available for SPI communications, or for interfacing with 1-wire sensors. My setup uses a BME280 (temperature, pressure, humidity) sensor, and micropython.
 
 This is purely a sensor(s)-to-MQTT-bridge setup. We won't be doing anything advanced like connecting to a [public LORA network](https://www.thethingsnetwork.org/). For that, you'd both need to interface with additional DIO ports on the LORA module, and require different software: I haven't seen a micropython implementation for this use-case.
 
@@ -21,7 +21,7 @@ To the LORA module:
 \*other DIO ports not needed for this simple application
 
 To the sensor (e.g. BME280 over SPI):
-| ESP-12F | BME280 |
+| ESP8266 | BME280 |
 | ---| --- |
 | gpio12 | MISO (labeled as SDO) |
 | gpio13 | MOSI (labeled as SDA) |
@@ -31,7 +31,7 @@ To the sensor (e.g. BME280 over SPI):
 \*the choice of gpio2 for the slave select pin means that the ESP-12F's onboard LED will illuminate when the BME280 is being accessed. That's a reasonable compromise given the lack of available gpio.
 
 Optional:
-| ESP-12F |  |
+| ESP8266 |  |
 | ---| --- |
 | gpio4  | mode switch |
 | gpio16 | deep sleep |
