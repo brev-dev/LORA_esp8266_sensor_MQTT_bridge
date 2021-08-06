@@ -17,6 +17,7 @@ To the LORA module:
 | gpio13 | MOSI |
 | gpio14 | SCK |
 | gpio15 | NSS |
+
 \*other DIO ports not needed for this simple application
 
 To the sensor (e.g. BME280 over SPI):
@@ -26,6 +27,7 @@ To the sensor (e.g. BME280 over SPI):
 | gpio13 | MOSI (labeled as SDA) |
 | gpio14 | SCK (labeled as SCL) |
 | gpio2\* | NSS (labeled as CSB) |
+
 \*the choice of gpio2 for the slave select pin means that the ESP-12F's onboard LED will illuminate when the BME280 is being accessed. That's a reasonable compromise given the lack of available gpio.
 
 Optional:
