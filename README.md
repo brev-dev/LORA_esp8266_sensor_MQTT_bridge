@@ -1,4 +1,43 @@
 # LORA_esp8266_sensor_and_MQTT_bridge
+The limited available IO on an esp8266 make it a challenge to use as the basis for a LORA sensor. Here's a configuration that leaves just enough ports available for SPI communications, or for interfacing with other simple sensors. My setup uses a BME280 (temperature, pressure, humidity) sensor, and micropython.
+
+This is purely a sensor(s)-to-MQTT-bridge setup. We won't be doing anything advanced like connecting to a [public LORA network](https://www.thethingsnetwork.org/). For that, you'd both need to interface with additional DIO ports on the LORA module, and require different software: I haven't seen a micropython implementation for this use-case.
+
+## Example hardware 
+(links will inevitably expire over time)
+You can find an example of a complete circuitboard layout in 
+
+iring
+
+To the LORA module:
+| ESP8266 | RFM95W |
+| ---| --- |
+| gpio5 | DIO0\* |
+| gpio12 | MISO |
+| gpio13 | MOSI |
+| gpio14 | SCK |
+| gpio15 | NSS |
+\*other DIO ports not needed for this simple application
+
+To the sensor (e.g. BME280 over SPI):
+| ESP-12F | BME280 |
+| ---| --- |
+| gpio12 | MISO (labeled as SDO) |
+| gpio13 | MOSI (labeled as SDA) |
+| gpio14 | SCK (labeled as SCL) |
+| gpio2\* | NSS (labeled as CSB) |
+\*the choice of gpio2 for the slave select pin means that the ESP-12F's onboard LED will illuminate when the BME280 is being accessed. That's a reasonable compromise given the lack of available gpio.
+
+Optional:
+| ESP-12F |  |
+| ---| --- |
+| gpio4  | mode switch |
+| gpio16 | deep sleep |
+
+
+
+## Micropython and drivers
+
 
 
 ## Radio configuration
@@ -21,3 +60,6 @@ Here's what I use to maximize range with multiple obstacles. With this, I can re
 - spreading_factor = 11
 - coding_rate = 8
 - preamble_length = 8
+
+### Antenna considerations
+Your cheapest/simplest option is an appropriate wire attached to the antenna port on the LORA module. These sometimes come bundled with the modules. This'll work adequately over short ranges, but will limit your maximum range compared to a higher-gain antenna. Given my use-case is pushing the limit (due to obstructions, rather than absolute range), I use something bigger.
