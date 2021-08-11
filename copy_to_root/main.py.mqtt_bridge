@@ -1,0 +1,11 @@
+from machine import Pin
+import gc
+import webrepl
+webrepl.start()
+gc.collect()
+
+#see if the override button is pressed
+button = Pin(4, Pin.IN, Pin.PULL_UP) 
+if button.value(): #only run the following if the button hasn't been set to ground
+	import lora_receive
+	

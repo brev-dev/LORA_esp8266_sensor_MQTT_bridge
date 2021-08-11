@@ -1,0 +1,18 @@
+from machine import Pin
+import gc
+import network
+wlan = network.WLAN(network.STA_IF)
+
+#see if the override button is pressed
+button = Pin(4, Pin.IN, Pin.PULL_UP) 
+if button.value(): #only run the following if the button hasn't been set to ground
+	wlan.active(False)
+	gc.collect()
+	import lora_bme_send
+else: #button has been set low
+	wlan.active(True)
+	wlan.connect()
+	import webrepl
+	webrepl.start()
+	gc.collect()
+	
