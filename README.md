@@ -3,11 +3,16 @@ The limited number of gpio pins on an esp8266 make it a challenge to use as the 
 
 This is purely a sensor(s)-to-MQTT-bridge setup. We won't be doing anything advanced like connecting to a [public LORA network](https://www.thethingsnetwork.org/). For that, you'd need to both interface with additional DIO ports on the LORA module, and find different software: I haven't seen a micropython implementation for this use-case.
 
-## Example hardware 
-(links will inevitably expire over time)
-You can find an example of a complete circuitboard layout in 
+## Utilized drivers
 
-iring
+sx127x LORA driver originally from https://github.com/Wei1234c/SX127x_driver_for_MicroPython_on_ESP8266, which I [forked and stripped-down](https://github.com/brev-dev/SX127x_driver_for_MicroPython_on_ESP8266) to the bare minimum to keep within esp8266 memory limits.
+BME280: https://github.com/brev-dev/micropython_bme280_i2c_spi
+MQTT: https://github.com/RuiSantosdotme/ESP-MicroPython/blob/1caad431c59167e0135cad3ae0ec1b19d182bb28/code/MQTT/umqttsimple.py
+
+## Example hardware 
+I use this with my [custom sensor board](https://github.com/brev-dev/another_esp8266_sensor_board).
+
+## Wiring
 
 To the LORA module:
 | ESP8266 | RFM95W |
@@ -129,6 +134,12 @@ import machine
 machine.reset()
 ```
 Now you can access the device via webrepl. Either run a copy of the client [online](https://micropython.org/webrepl/) or copy it locally from https://github.com/micropython/webrepl. The port will be 8266. So access your device at an address in the format ###.###.###.###:8266
+
+### Copy additional files
+Through the webrepl interface, you can now copy the needed files from ###.
+If this is a sensor, rename main.py.sensor to main.py
+If this is a receiver/bridge, rename main.py.mqtt_bridge to main.py
+
 
 ## Radio configuration
 
