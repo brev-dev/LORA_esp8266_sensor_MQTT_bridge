@@ -92,6 +92,7 @@ The firmware is generated under ports/esp8266/build folder with the name firmwar
 
 #### Adding additional files to a firmware image
 Put the desired files in micropython/ports/esp8266/modules.
+In our use-case here, copy over the files in https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/tree/main/for_image.
 
 Then from the directory micropython/ports/esp8266, run:
 ```
@@ -133,13 +134,14 @@ time.sleep(6)
 import machine
 machine.reset()
 ```
-Now you can access the device via webrepl. Either run a copy of the client [online](https://micropython.org/webrepl/) or copy it locally from https://github.com/micropython/webrepl. The port will be 8266. So access your device at an address in the format ###.###.###.###:8266
+Now you can access the device via webrepl. Either run a copy of the client [online](https://micropython.org/webrepl/) or copy it locally from https://github.com/micropython/webrepl. The port will be 8266. So access your device at an address in the format 192.168.#.#:8266
 
 ### Copy additional files
-Through the webrepl interface, you can now copy the needed files from ###.
-If this is a sensor, rename main.py.sensor to main.py
-If this is a receiver/bridge, rename main.py.mqtt_bridge to main.py
+Through the webrepl interface, you can now copy the needed files from https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/tree/main/copy_to_root.
 
+User-configurable options can be found in the top of [lora_bme_send.py](https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/blob/16080af19750ad99db2f3fc6d2e502e561b21ca8/copy_to_root/lora_bme_send.py) and [lora_receive.py](https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/blob/16080af19750ad99db2f3fc6d2e502e561b21ca8/copy_to_root/lora_receive.py)
+If this is a sensor, rename [main.py.sensor](https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/blob/16080af19750ad99db2f3fc6d2e502e561b21ca8/copy_to_root/main.py.sensor) to main.py
+If this is a receiver/bridge, rename [main.py.mqtt_bridge](https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/blob/16080af19750ad99db2f3fc6d2e502e561b21ca8/copy_to_root/main.py.mqtt_bridge) to main.py
 
 ## Radio configuration
 
