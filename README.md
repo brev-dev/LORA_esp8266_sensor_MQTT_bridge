@@ -5,9 +5,9 @@ This is purely a sensor(s)-to-MQTT-bridge setup. We won't be doing anything adva
 
 ## Utilized drivers
 
-sx127x LORA driver originally from https://github.com/Wei1234c/SX127x_driver_for_MicroPython_on_ESP8266, which I [forked and stripped-down](https://github.com/brev-dev/SX127x_driver_for_MicroPython_on_ESP8266) to the bare minimum to keep within esp8266 memory limits.
-BME280: https://github.com/brev-dev/micropython_bme280_i2c_spi
-MQTT: https://github.com/RuiSantosdotme/ESP-MicroPython/blob/1caad431c59167e0135cad3ae0ec1b19d182bb28/code/MQTT/umqttsimple.py
+- sx127x LORA driver originally from https://github.com/Wei1234c/SX127x_driver_for_MicroPython_on_ESP8266, which I [forked and stripped-down](https://github.com/brev-dev/SX127x_driver_for_MicroPython_on_ESP8266) to the bare minimum to keep within esp8266 memory limits.
+- BME280: https://github.com/brev-dev/micropython_bme280_i2c_spi
+- MQTT: https://github.com/RuiSantosdotme/ESP-MicroPython/blob/1caad431c59167e0135cad3ae0ec1b19d182bb28/code/MQTT/umqttsimple.py
 
 ## Example hardware 
 I use this with my [custom sensor board](https://github.com/brev-dev/another_esp8266_sensor_board).
