@@ -12,6 +12,8 @@ This is purely a sensor(s)-to-MQTT-bridge setup. We won't be doing anything adva
 ## Example hardware 
 I use this with my [custom sensor board](https://github.com/brev-dev/another_esp8266_sensor_board).
 
+![A pair of LORA devices](https://github.com/brev-dev/another_esp8266_sensor_board/raw/5aa659a7452a0eb0ab53f27bc85ff3bf4364177d/images/lora_pair.jpg)
+
 ## Wiring
 
 To the LORA module:
