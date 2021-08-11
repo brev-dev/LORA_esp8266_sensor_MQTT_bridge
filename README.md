@@ -92,7 +92,10 @@ The firmware is generated under ports/esp8266/build folder with the name firmwar
 
 #### Adding additional files to a firmware image
 Put the desired files in micropython/ports/esp8266/modules.
-In our use-case here, copy over the files in https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/tree/main/for_image.
+In our use-case here, copy over all .py files from:
+- https://github.com/brev-dev/LORA_esp8266_sensor_MQTT_bridge/tree/main/for_image
+- https://github.com/brev-dev/SX127x_driver_for_MicroPython_on_ESP8266
+- https://github.com/brev-dev/micropython_bme280_i2c_spi
 
 Then from the directory micropython/ports/esp8266, run:
 ```
