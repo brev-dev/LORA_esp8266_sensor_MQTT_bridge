@@ -42,9 +42,97 @@ Optional:
 
 
 
+### Making a firmware image
+These are incomplete personal notes, derived form information provided at http://www.microdev.it/wp/en/2018/06/25/micropython-micropython-compiling-for-esp8266/.
+I use a raspberry pi for the compilation.
+
+```
+mkdir ~/Micropython
+mkdir ~/Micropython/esp8266
+cd ~/Micropython/esp8266
+git clone https://github.com/micropython/micropython
+
+#  Cross-compiler stuff (only need to do once)
+
+git clone --recursive  https://github.com/pfalcon/esp-open-sdk
+
+sudo apt-get install make unrar-free autoconf automake libtool gcc g++ gperf flex bison texinfo gawk ncurses-dev libexpat-dev python-dev python python-serial sed git unzip bash help2man wget bzip2 libtool-bin
+```
+
+Now need to change some of the code (in the current version) which is doing an incorrect bash version check (see https://github.com/pfalcon/esp-open-sdk/issues/365):
+
+Change line 193 at esp-open-sdk/crosstool-NG/configure.ac
+like this:
+```
+ |$EGREP '^GNU bash, version ([0-9\.]+)')
+```
+
+Then back to work...
+```
+cd esp-open-sdk
+make STANDALONE=y |& tee make0.log
+```
+Back to the firmware itself
+```
+export PATH=/home/pi/Micropython/esp8266/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
+cd ~/Micropython/esp8266/micropython
+git submodule update --init
+
+make -C mpy-cross
+cd ports/esp8266
+make axtls
+make
+```
+The firmware is generated under ports/esp8266/build folder with the name firmware_combined.bin
+
+#### Adding additional files to a firmware image
+Put the desired files in micropython/ports/esp8266/modules.
+
+Then from the directory micropython/ports/esp8266, run:
+```
+make clean
+make
+```
+And finally recompile the firmware as above.
+
+### Flashing the firmware
+Use your chosen method to get the esp8266 connected to a PC via UART, and know the UART COM port (e.g., COM3)
+I use the python package epstool for flashing (in Windows):
+```
+pip install esptool
+esptool.py --port COM3 --chip esp8266 erase_flash
+esptool.py --port COM3 --chip esp8266  write_flash --flash_mode dio --flash_size detect 0x0 <firmware_file>
+```
+Reset and connect via serial (putty). Then:
+```
+import initial_setup
+```
+This command runs the following (which you could do manually):
+```
+import webrepl_setup
+
+import network
+sta_if=network.WLAN(network.STA_IF)
+ap_if=network.WLAN(network.AP_IF)
+sta_if.active()
+ap_if.active()
+sta_if.active(True)
+ap_if.active(False)
+sta_if.connect('dd-wrt','freshjade659')
+sta_if.isconnected()
+sta_if.ifconfig()
+
+import time
+time.sleep(6)
+
+import machine
+machine.reset()
+```
+Now you can access the device via webrepl. Either run a copy of the client [online](https://micropython.org/webrepl/) or copy it locally from https://github.com/micropython/webrepl. The port will be 8266. So access your device at an address in the format ###.###.###.###:8266
+
 ## Radio configuration
 
-A number of radio settings influence the range and reliability of a LORA transceiver pair. [Here's](https://medium.com/home-wireless/testing-lora-radios-with-the-limesdr-mini-part-2-37fa481217ff) a good discussion on the topic.
+A number of radio settings influence the range and reliability of a LORA transceiver pair. A good discussion on the topic can be found at https://medium.com/home-wireless/testing-lora-radios-with-the-limesdr-mini-part-2-37fa481217ff.
 
 The key parameters for us are as follows:
 - frequency (defined by your region and hardware): 169E6, 433E6, 434E6, 866E6, 868E6, 915E6
@@ -53,7 +141,7 @@ The key parameters for us are as follows:
 - spreading_factor (default 8): 6 <= x <= 12
 - coding_rate (default 5): 5 <= x <= 8 (true coding rate in the range 1-4 equals this value minus 4)
 
-Respect the fair-use transmission time per sensor of 30 seconds per day. The Semtec "LORA Calculator" tool gives the airtime (and therefore the minimum time between readings) for different radio settings. Or there's an online tool [here](https://loratools.nl/#/airtime).
+Respect the fair-use transmission time per sensor. The Semtec "LORA Calculator" tool gives the airtime (and therefore the minimum time between readings) for different radio settings. Or there's an online tool [here](https://loratools.nl/#/airtime).
 
 ### Example settings
 Here's what I use to maximize range with multiple obstacles. With this, I can reliably get a signal from a sensor in the basement to a receiver four floors above:
