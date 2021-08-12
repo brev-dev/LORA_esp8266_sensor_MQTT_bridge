@@ -50,7 +50,7 @@ Optional:
 
 
 ### Making a firmware image
-These are incomplete personal notes, derived form information provided at http://www.microdev.it/wp/en/2018/06/25/micropython-micropython-compiling-for-esp8266/.
+These are incomplete personal notes, derived from information provided at http://www.microdev.it/wp/en/2018/06/25/micropython-micropython-compiling-for-esp8266/. YMMV.
 I use a raspberry pi for the compilation.
 
 ```
